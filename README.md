@@ -6,9 +6,13 @@ Playing with Golang with Spring Cloud Config services and Netflix Eureka
 # Clone the repo
 $ git clone https://github.com/rdc-lda/go-sccs-eureka.git
 $ cd ./o-sccs-eureka
+~~~
 
-# Initialize the configuration repository
-$ (rm -Rf data && \
+We need to provide a Git repository to Spring Cloud Config server, so let's create one:
+
+~~~bash
+# Initialize the Git repository which will store our config files
+$ (rm -Rf ./data && \
    mkdir -p ./data/git-repo && \
    cd ./data/git-repo && \
    cp ../../conf/* . && \
@@ -16,7 +20,7 @@ $ (rm -Rf data && \
    git add . && \
    git commit -m 'Initial config for SCCS demo')
 
-# Startup registry and config services
+# Startup registry and config services with volume attached to ./data/git-repo
 $ docker-compose up -d
 ~~~
 
