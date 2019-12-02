@@ -3,7 +3,11 @@
 Playing with Golang with Spring Cloud Config services and Netflix Eureka
 
 ~~~bash
-# Initialize the repository
+# Clone the repo
+$ git clone https://github.com/rdc-lda/go-sccs-eureka.git
+$ cd ./o-sccs-eureka
+
+# Initialize the configuration repository
 $ (rm -Rf data && \
    mkdir -p ./data/git-repo && \
    cd ./data/git-repo && \
@@ -12,9 +16,11 @@ $ (rm -Rf data && \
    git add . && \
    git commit -m 'Initial config for SCCS demo')
 
-# Startup eureka and config services
+# Startup registry and config services
 $ docker-compose up -d
 ~~~
+
+## Spring Cloud Config internals
 
 Please take some time to study the files in the created `./data/git-config` directory (in order of overlay)
 
@@ -32,11 +38,11 @@ data
 
 See for the latter the example `myapp-test.properties` (level 4) overrides the Elasticsearch port set in `application-test.properties` (level 2) which is substituted in `my-app.properties` (level 3).
 
-## Login to registry
+### Login to registry
 
 Now, you can login to the service registry (Netflix Eureka) [http://localhost:8761](http://localhost:8761) using `eureka/secret`; note the `SCCS` application (the Spring Cloud Config Server) is in status `UP(1)`.
 
-## Access the Spring Cloud Config API
+### Access the Spring Cloud Config API
 
 Next, let's access the configuration API by requesting the configuration for our app `myapp`.
 
@@ -133,7 +139,7 @@ As you can see, all information related to the general (`default`) and environme
 
 While this is awesome, your application might just "wanna know its configuration" and you do not want to write complex logic to parse (and overlay) the variables and placeholders...
 
-## Render the application configuration ready for use
+### Render the application configuration ready for use
 
 Let's now access the API requesting `properties` format:
 
