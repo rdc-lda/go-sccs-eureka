@@ -135,7 +135,7 @@ While this is awesome, your application might just "wanna know its configuration
 
 ## Render the application configuration ready for use
 
-Let's now access the API requesting `yaml` or properties format:
+Let's now access the API requesting `properties` format:
 
 ~~~bash
 # Request the (default, environment agnostic) configuration in properties format
@@ -150,7 +150,7 @@ resultset.pagesize: 10
 vendor.id: rdc
 ~~~
 
-...  or in YAML format:
+...  or in `yaml` format:
 
 ~~~bash
 # Request the (default, environment agnostic) configuration in yaml format
@@ -170,7 +170,7 @@ vendor:
   id: rdc
 ~~~
 
-As you can see... it does not make sense to request a configuration which is disconnected from its environment, let's try again with the `test` environment directive:
+As you can see... it **does not make sense** to request a configuration which is disconnected from its environment, let's try again with the `test` environment directive:
 
 ~~~bash
 # Request the (default, environment agnostic) configuration in yaml format
