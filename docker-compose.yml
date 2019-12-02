@@ -1,0 +1,39 @@
+version: '3.7'
+ 
+services:
+
+    registry-server:
+      image: rdclda/eureka-registry
+      ports:
+          - 8761:8761
+      environment: 
+        server.port: 8761
+        security.user.name: "eureka"
+        security.user.password: "secret"
+        security.basic.enabled: "true"
+        spring.application.name: "registry"
+        JAVA_OPTS: "-Xms200m -Xmx200m"
+
+    config-server:
+      image: rdclda/sccs:latest
+      ports:
+          - 8888:8888
+      volumes:
+          - ./data/git-repo:/git-repo
+      environment:
+        server.port: 8888
+        security.user.name: "config"
+        security.user.password: "secret"
+        security.basic.enabled: "true"
+        spring.application.name: "sccs"
+        spring-cloud-services-registrationMethod: "direct"
+        spring.cloud.config.discovery.enabled: "false"
+        spring.cloud.config.fail.fast: "false"
+        eureka.client.enabled: "true"
+        eureka.instance.preferIpAddress: "true"
+        eureka.client.registerWithEureka: "true"
+        spring.cloud.config.server.git.uri: "file:///git-repo"
+        eureka.client.serviceUrl.defaultZone: "http://eureka:secret@registry-server:8761/eureka/"
+        JAVA_OPTS: "-Xms200m -Xmx200m"
+      depends_on:
+        - registry-server
